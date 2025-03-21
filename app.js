@@ -22,21 +22,15 @@ function getHoroscope() {
 }
 
 async function fetchHoroscope(sign) {
-    const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; // CORS proxy
-    const apiUrl = 'https://aztro.sameerkumar.website?sign=' + sign + '&day=today';
-    
-    // Sending the request through the CORS proxy server
-    const response = await fetch(proxyUrl + apiUrl, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    });
+    const apiUrl = `https://horoscope-app-api.vercel.app/horoscope/${sign}`;
+
+    // Send the GET request to the Horoscope API
+    const response = await fetch(apiUrl);
 
     if (!response.ok) {
         throw new Error('Network response was not ok');
     }
 
     const data = await response.json();
-    return data.description;  // Horoscope text is in the 'description' field
+    return data.horoscope;  // The horoscope text is in the 'horoscope' field
 }
