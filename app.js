@@ -22,8 +22,15 @@ function getHoroscope() {
 }
 
 async function fetchHoroscope(sign) {
-    const response = await fetch('https://aztro.sameerkumar.website?sign=' + sign + '&day=today', {
+    const proxyUrl = 'https://cors-anywhere.herokuapp.com/'; // CORS proxy
+    const apiUrl = 'https://aztro.sameerkumar.website?sign=' + sign + '&day=today';
+    
+    // Sending the request through the CORS proxy server
+    const response = await fetch(proxyUrl + apiUrl, {
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
     });
 
     if (!response.ok) {
